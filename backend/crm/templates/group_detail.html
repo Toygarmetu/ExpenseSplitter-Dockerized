@@ -1,0 +1,18 @@
+{% extends 'crm/base.html' %}
+
+{% block content %}
+  <h2>Group: {{ object.name }}</h2>
+  <p>Created by: {{ object.created_by }}</p>
+
+  <h3>Expenses:</h3>
+  <ul>
+    {% for expense in object.expense_set.all %}
+      <li>{{ expense.title }}: ${{ expense.amount }}</li>
+    {% empty %}
+      <li>No expenses yet.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'group_update' object.id %}">Edit</a>
+
+{% endblock %}

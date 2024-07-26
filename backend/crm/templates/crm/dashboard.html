@@ -1,0 +1,30 @@
+{% extends 'crm/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4">Dashboard</h2>
+            <div class="d-flex justify-content-between mb-3">
+                <a href="{% url 'expense_create' %}" class="btn btn-primary">Create New Expense</a>
+                <a href="{% url 'user_logout' %}" class="btn btn-secondary">Logout</a>
+            </div>
+            <div class="list-group">
+                {% for group in expense_groups %}
+                <a href="{% url 'group_detail' group.id %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    {{ group.name }}
+                    <span class="badge bg-primary rounded-pill">{{ group.expenses.count }}</span>
+                </a>
+                <a href="{% url 'expensegroup_create' group.id %}" class="btn btn-primary">Create New Expense Group for {{ group.name }}</a>
+                {% empty %}
+                <div class="alert alert-info" role="alert">
+                    No expense groups found. Start by creating a new one!
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

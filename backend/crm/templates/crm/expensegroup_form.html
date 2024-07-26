@@ -1,0 +1,40 @@
+{% extends 'crm/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h2 class="mb-3">Add an expense</h2>
+    <div class="mb-3">
+      <label for="expense_title" class="form-label">Title:</label>
+      <input id="expense_title" type="text" name="expense_title" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="expense_amount" class="form-label">Amount:</label>
+      <input id="expense_amount" type="number" name="expense_amount" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="expense_date" class="form-label">Date:</label>
+      <input id="expense_date" type="date" name="expense_date" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="expense_payer" class="form-label">Payer:</label>
+      <select id="expense_payer" name="expense_payer" class="form-select">
+        {% for user in users %}
+          <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="expense_participants" class="form-label">Participants:</label>
+      <select id="expense_participants" name="expense_participants" multiple class="form-select">
+        {% for user in users %}
+          <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
+</div>
+{% endblock %}
